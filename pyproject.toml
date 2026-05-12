@@ -1,0 +1,14 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "luminaq"
+version = "0.1.0"
+description = "LuminaQ Photonic Quantum Computing Platform"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["packages"]
+asyncio_mode = "auto"
+addopts = "--tb=short"
