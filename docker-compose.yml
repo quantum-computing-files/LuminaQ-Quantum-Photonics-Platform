@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  lumq-api:
+    build:
+      context: .
+      dockerfile: packages/lumq-api/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - LUMQ_ENV=development
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  ui:
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "npm ci && npm run dev -- --host 0.0.0.0"
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+      - VITE_WS_URL=ws://localhost:8000/ws
+    depends_on:
+      - lumq-api
