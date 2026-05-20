@@ -1,7 +1,3 @@
-"""lumq.api - LuminaQ FastAPI gateway v0.1.0"""
-__version__ = "0.1.0"
-from lumq.api.app import app, create_app
-__all__ = ["app","create_app"]
 """lumq.api.app - FastAPI application."""
 from __future__ import annotations
 import asyncio, json
@@ -193,3 +189,4 @@ async def _ws_submit(conn_id, ws, data):
         await ws.send_text(json.dumps({"event":"job_failed","timestamp":_now(),"data":{"error":str(e)}}))
 
 app = create_app()
+
